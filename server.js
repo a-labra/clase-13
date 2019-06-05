@@ -1,9 +1,11 @@
 const http = require('http');
 const fs = require('fs');
 const port = 8000;
+const historia = "texto del archivo"
 
 const server = http.createServer(responseHandler);
 
+/*Para buscar un archivo
 function responseHandler(req,res){
   fs.access('static/index.html', fs.constants.F_OK, function(err){
     if(err){
@@ -15,6 +17,24 @@ function responseHandler(req,res){
   })
   //res.write("Hola desde el servidor!");
 
+}
+*/
+/*Para escribir un archivo*/
+function responseHandler(req,res){
+  fs.writeFile('historia.txt', historia, function(err){
+   if(err){
+     throw err;
+   }
+   });
+
+
+  fs.readFile('historia.txt', 'utf-8', function(err, contenido){
+   if(err){
+     throw err;
+   }
+   res.write(contenido);
+   res.end();
+  })
 }
 
 server.listen(port, callback);

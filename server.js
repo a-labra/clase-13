@@ -19,7 +19,8 @@ function responseHandler(req,res){
 
 }
 */
-/*Para escribir un archivo*/
+/*Para escribir y leer un archivo*/
+/*
 function responseHandler(req,res){
   fs.writeFile('historia.txt', historia, function(err){
    if(err){
@@ -36,7 +37,17 @@ function responseHandler(req,res){
    res.end();
   })
 }
-
+*/
+function responseHandler(req,res){
+  fs.readFile('static/index.html', 'utf-8', function(err, contenido){
+   if(err){
+     throw err;
+   }
+   res.writeHeader(200,{"Content-Type": "text/html"});
+   res.write(contenido);
+   res.end();
+ })
+}
 server.listen(port, callback);
 
 function callback(){

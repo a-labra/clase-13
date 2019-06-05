@@ -1,11 +1,20 @@
 const http = require('http');
+const fs = require('fs');
 const port = 8000;
 
 const server = http.createServer(responseHandler);
 
 function responseHandler(req,res){
-  res.write("Hola desde el servidor cambio");
-  res.end();
+  fs.access('static/index.html', fs.constants.F_OK, function(err){
+    if(err){
+      res.write("El archivo no existe");
+    } else {
+      res.write("El archivo si existe");
+    }
+    res.end();
+  })
+  //res.write("Hola desde el servidor!");
+
 }
 
 server.listen(port, callback);
